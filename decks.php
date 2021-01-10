@@ -55,8 +55,12 @@
 
 </main>
 <script src="static/js/remove.js" defer></script>
+<script src="static/js/pagination.js" defer></script>
 <?php
     include_once "views/footer.view.php";
     $footerView = new FooterView();
+    $numberOfDecks = $decksModel->getNumberOfDecks($_SESSION["id"])["COUNT(*)"];
+    
+    $footerView->generatePaginationFooter($numberOfDecks);
     $footerView->generatePageEnd();
 ?>

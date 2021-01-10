@@ -35,16 +35,19 @@ class Decks extends Db{
     }
 
     /**
-     * Returns all decks belonging to a user.
+     * Returns page of rows belonging to a user.
      * 
      * @param uid Id of the owner.
+     * @param page Page of decks.
      * 
      * @return array All deck rows belonging to a user.
      */
-    public function getTable($uid) {
+    public function getTable($uid, $page=1) {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM decks WHERE created_by = :uid ORDER BY last_reviewed DESC");
+            $skip = ($page - 1) * 26;
+            $stmt = $this->conn->prepare("SELECT * FROM decks WHERE created_by = :uid ORDER BY last_reviewed DESC LIMIT :skip, 26");
             $stmt->bindParam(":uid", $uid);
+            $stmt->bindParam(":skip", $skip, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll();
         } catch(PDOException $e) {
@@ -155,6 +158,42 @@ class Decks extends Db{
             $stmt->bindParam(":deckId", $deckId);
             $stmt->bindParam(":date", $date);
             $stmt->execute();
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * Returns the amount of decks the user has created.
+     * 
+     * @param uid User id.
+     * 
+     * @return Int
+     */
+    public function getNumberOfDecks($uid){
+        try{
+            $stmt = $this->conn->prepare("SELECT COUNT(*) FROM decks WHERE created_by = :uid");
+            $stmt->bindParam(":uid", $uid);
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * Returns the amount of decks the user has created.
+     * 
+     * @param uid User id.
+     * 
+     * @return Int
+     */
+    public function getNumberOfCards($deckId){
+        try{
+            $stmt = $this->conn->prepare("SELECT cards FROM decks where id = :deckId");
+            $stmt->bindParam(":deckId", $deckId);
+            $stmt->execute();
+            return $stmt->fetch();
         } catch(PDOException $e) {
             echo $e->getMessage();
         }

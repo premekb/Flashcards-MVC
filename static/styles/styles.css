@@ -64,8 +64,12 @@ nav{
     font-size: xx-large;
   }
 
-  button#flip{
+  button#flip, button#left, button#right{
       margin-top: 12px;
+  }
+
+  button#left{
+      margin-right: 10px;
   }
 
   table{

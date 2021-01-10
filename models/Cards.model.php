@@ -69,16 +69,19 @@ class Cards extends Db{
     }
 
      /**
-     * Returns all cards belonging to a deck.
+     * Returns page of cards belonging to a deck.
      * 
      * @param deckId Unique id of a deck.
+     * @param page Page of cards.
      * 
      * @return array Item represents a deck row from the database.
      */
-    public function getTable($deckId) {
+    public function getTable($deckId, $page=1) {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM cards WHERE deck_id = :deckId");
+            $skip = ($page - 1) * 26;
+            $stmt = $this->conn->prepare("SELECT * FROM cards WHERE deck_id = :deckId ORDER BY id DESC LIMIT :skip, 26");
             $stmt->bindParam(":deckId", $deckId);
+            $stmt->bindParam(":skip", $skip, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll();
         } catch(PDOException $e) {

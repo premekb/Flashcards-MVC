@@ -14,6 +14,21 @@ class FooterView {
     }
 
     /**
+     * Generates a pagination footer for the decks and cards page.
+     * 
+     * @return void
+     */
+    public function generatePaginationFooter($amount){
+        echo "<footer class='footer'>
+        <div class='container'>
+        <button type='submit' id='left' class='btn btn-primary'>&lt;--</button>
+        <button type='submit' id='right' class='btn btn-primary'>--&gt;</button>
+        <input type='hidden' id='items' value='$amount'></input>
+        </div>
+        </footer>";
+    }
+
+    /**
      * Generates the footer on the review page.
      * 
      * @return void
