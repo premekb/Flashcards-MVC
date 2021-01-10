@@ -12,4 +12,5 @@
   - Views - Echoes out the html code.
   - Models - Every table in the DB, has its own model.
   - static - Contains css styles, and JS code.
+  - includes - Autoloader, logout script
   
