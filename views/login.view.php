@@ -26,7 +26,6 @@ class LoginView {
         <div class='form-group'>
           <label for='exampleInputPassword1'>Password</label>
           <input type='password' name='password' class='form-control' id='exampleInputPassword1' placeholder='Password' required>
-          <a href='seznam.cz'><small id='emailHelp' class='form-text text-muted'>Forgout your password?</small></a>
         </div>
         <a href='register.php' class='row justify-content-center' id='login-link'>Create a new account</a>
         <span class='row justify-content-center error'>$error</span>
