@@ -14,3 +14,6 @@
   - static - Contains css styles, and JS code.
   - includes - Autoloader, logout script
   
+  # Database structure
+  ![database diagram](https://premekbelka.com/flashcards_diagram_github.png)
+  
